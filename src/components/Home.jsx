@@ -82,8 +82,8 @@ export default function Homepage() {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-emerald-500/90" />
+            {/* Dark Overlay for text readability */}
+            <div className="absolute inset-0 bg-black/40" />
             
             {/* Content */}
             <div className="relative h-full flex items-center justify-center text-center px-4">
