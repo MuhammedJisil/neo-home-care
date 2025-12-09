@@ -1,94 +1,127 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Briefcase, Upload, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import { Phone, Mail, MapPin, Briefcase, CheckCircle } from "lucide-react";
 
 export default function CareersPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    position: '',
-    cv: null
+    name: "",
+    email: "",
+    phone: "",
+    position: "",
   });
-  const [submitted, setSubmitted] = useState(false);
 
-  // Load PT Serif font
+  // Intersection Observer for scroll animations
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll(".scroll-animate");
+    elements.forEach((el) => observerRef.current.observe(el));
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  // Load PT Serif font and add animation styles
   React.useEffect(() => {
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap';
-    link.rel = 'stylesheet';
+    const link = document.createElement("link");
+    link.href =
+      "https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap";
+    link.rel = "stylesheet";
     document.head.appendChild(link);
-    
+
+    // Add animation styles
+    const style = document.createElement("style");
+    style.textContent = `
+      .scroll-animate {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .scroll-animate.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    `;
+    document.head.appendChild(style);
+
     return () => {
       document.head.removeChild(link);
+      document.head.removeChild(style);
     };
   }, []);
 
   const positions = [
-    'MLT (Medical Laboratory Technician)',
-    'GNM (General Nursing and Midwifery)',
-    'ANM (Auxiliary Nurse Midwife)',
-    'GNA (General Nursing Assistant)',
-    'General Duty'
+    "MLT (Medical Laboratory Technician)",
+    "GNM (General Nursing and Midwifery)",
+    "ANM (Auxiliary Nurse Midwife)",
+    "GNA (General Nursing Assistant)",
+    "General Duty",
   ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      cv: e.target.files[0]
+      [name]: value,
     }));
   };
 
   const handleSubmit = () => {
-    if (!formData.name || !formData.email || !formData.phone || !formData.position) {
-      alert('Please fill in all required fields');
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.position
+    ) {
+      alert("Please fill in all required fields");
       return;
     }
-    
-    // Create mailto link with form data
+
+    // Create mailto link with form data and instruction to attach CV
     const subject = `Job Application - ${formData.position}`;
-    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0APhone: ${formData.phone}%0D%0APosition: ${formData.position}%0D%0A%0D%0APlease find my CV attached.`;
-    
+    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0APhone: ${formData.phone}%0D%0APosition: ${formData.position}%0D%0A%0D%0APlease attach your CV/Resume to this email before sending.`;
+
     window.location.href = `mailto:info@neohomecaresolution.com?subject=${subject}&body=${body}`;
-    
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        position: '',
-        cv: null
-      });
-    }, 3000);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" style={{ fontFamily: "'PT Serif', serif" }}>
+    <div
+      className="min-h-screen bg-gray-50"
+      style={{ fontFamily: "'PT Serif', serif" }}
+    >
       {/* Hero Section with Background Image */}
       <div className="relative bg-gradient-to-r from-blue-500 to-emerald-400 text-white py-32 overflow-hidden">
         {/* Background Image Overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-100"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=2000&q=80)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundImage: 'url("./image-13.jpg")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
+        {/* Dark Overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40" />
 
-        <div className="text-center">
+        <div className="relative text-center z-10">
           <Briefcase className="mx-auto mb-4" size={48} />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 opacity-99">Join Our Team</h1>
-          <p className="text-xl md:text-2xl opacity-90">Be part of something meaningful - care for those who need it most</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Join Our Team</h1>
+          <p className="text-xl md:text-2xl opacity-90">
+            Be part of something meaningful - care for those who need it most
+          </p>
         </div>
       </div>
 
@@ -96,17 +129,24 @@ export default function CareersPage() {
       <div className="px-4 py-12 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left Column - Info */}
-          <div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">Why Work With Us?</h2>
-            
+          <div className="scroll-animate">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">
+              Why Work With Us?
+            </h2>
+
             <div className="space-y-6 mb-8">
               <div className="flex gap-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                   <CheckCircle className="text-blue-500" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-gray-800 mb-2">Competitive Compensation</h3>
-                  <p className="text-gray-600">We offer industry-leading salaries and comprehensive benefits packages.</p>
+                  <h3 className="font-semibold text-lg text-gray-800 mb-2">
+                    Competitive Compensation
+                  </h3>
+                  <p className="text-gray-600">
+                    We offer industry-leading salaries and comprehensive
+                    benefits packages.
+                  </p>
                 </div>
               </div>
 
@@ -115,8 +155,13 @@ export default function CareersPage() {
                   <CheckCircle className="text-emerald-500" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-gray-800 mb-2">Professional Growth</h3>
-                  <p className="text-gray-600">Continuous training and development opportunities to advance your career.</p>
+                  <h3 className="font-semibold text-lg text-gray-800 mb-2">
+                    Professional Growth
+                  </h3>
+                  <p className="text-gray-600">
+                    Continuous training and development opportunities to advance
+                    your career.
+                  </p>
                 </div>
               </div>
 
@@ -125,16 +170,21 @@ export default function CareersPage() {
                   <CheckCircle className="text-teal-500" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-gray-800 mb-2">Supportive Environment</h3>
-                  <p className="text-gray-600">Work with a compassionate team dedicated to making a difference.</p>
+                  <h3 className="font-semibold text-lg text-gray-800 mb-2">
+                    Supportive Environment
+                  </h3>
+                  <p className="text-gray-600">
+                    Work with a compassionate team dedicated to making a
+                    difference.
+                  </p>
                 </div>
               </div>
             </div>
 
             {/* Image placeholder */}
             <div className="rounded-lg overflow-hidden shadow-lg">
-              <img 
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
+              <img
+                src="./image-12.png"
                 alt="Healthcare team"
                 className="w-full h-64 object-cover"
               />
@@ -142,19 +192,15 @@ export default function CareersPage() {
           </div>
 
           {/* Right Column - Application Form */}
-          <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="bg-white rounded-lg shadow-lg p-8 scroll-animate">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Apply Now</h2>
-            
-            {submitted && (
-              <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-center gap-2">
-                <CheckCircle size={20} />
-                <span>Application submitted! Please check your email client to send your CV.</span>
-              </div>
-            )}
 
             <div className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Full Name *
                 </label>
                 <input
@@ -169,7 +215,10 @@ export default function CareersPage() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Email Address *
                 </label>
                 <input
@@ -184,7 +233,10 @@ export default function CareersPage() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Phone Number *
                 </label>
                 <input
@@ -199,7 +251,10 @@ export default function CareersPage() {
               </div>
 
               <div>
-                <label htmlFor="position" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="position"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Position Applying For *
                 </label>
                 <select
@@ -211,32 +266,19 @@ export default function CareersPage() {
                 >
                   <option value="">Select a position</option>
                   {positions.map((pos) => (
-                    <option key={pos} value={pos}>{pos}</option>
+                    <option key={pos} value={pos}>
+                      {pos}
+                    </option>
                   ))}
                 </select>
               </div>
 
-              <div>
-                <label htmlFor="cv" className="block text-sm font-medium text-gray-700 mb-2">
-                  Upload CV/Resume *
-                </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
-                  <input
-                    type="file"
-                    id="cv"
-                    name="cv"
-                    onChange={handleFileChange}
-                    accept=".pdf,.doc,.docx"
-                    className="hidden"
-                  />
-                  <label htmlFor="cv" className="cursor-pointer">
-                    <Upload className="mx-auto mb-2 text-gray-400" size={32} />
-                    <p className="text-sm text-gray-600">
-                      {formData.cv ? formData.cv.name : 'Click to upload or drag and drop'}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">PDF, DOC, DOCX (Max 5MB)</p>
-                  </label>
-                </div>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-800">
+                  <strong>Note:</strong> After clicking "Submit Application",
+                  your email client will open. Please attach your CV/Resume to
+                  the email before sending.
+                </p>
               </div>
 
               <button
@@ -254,22 +296,31 @@ export default function CareersPage() {
         </div>
 
         {/* Open Positions Section */}
-        <div className="mt-16">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Open Positions</h2>
+        <div className="mt-16 scroll-animate">
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+            Open Positions
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {positions.map((position, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow scroll-animate"
+              >
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-400 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Briefcase className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-gray-800 mb-2">{position}</h3>
-                    <p className="text-sm text-gray-600 mb-3">Full-time position</p>
-                    <button 
+                    <h3 className="font-semibold text-lg text-gray-800 mb-2">
+                      {position}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Full-time position
+                    </p>
+                    <button
                       onClick={() => {
-                        setFormData(prev => ({ ...prev, position }));
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setFormData((prev) => ({ ...prev, position }));
+                        window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
                       className="text-blue-500 hover:text-blue-600 font-medium text-sm"
                     >
@@ -282,8 +333,6 @@ export default function CareersPage() {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 }
