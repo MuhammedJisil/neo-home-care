@@ -110,7 +110,7 @@ export default function ServicesPage() {
       {/* Hero Section */}
       <div 
         ref={addToRefs}
-        className={`relative bg-gradient-to-br from-blue-600 via-cyan-500 to-emerald-400 text-white py-24 px-6 overflow-hidden transition-all duration-1000 ${
+        className={`relative bg-gradient-to-br from-blue-600 via-cyan-500 to-emerald-400 text-white py-20 px-4 pt-42 overflow-hidden transition-all duration-1000 ${
           visibleSections.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >

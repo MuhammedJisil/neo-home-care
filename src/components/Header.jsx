@@ -9,7 +9,7 @@ export default function Header() {
     { name: 'HOME', href: '/' },
     { name: 'ABOUT US', href: '/about' },
     { name: 'SERVICES', href: '/services' },
-    { name: 'CAREERS', href: '/career' }
+    { name: 'CAREERS', href: '/careers' }
   ];
 
   return (
