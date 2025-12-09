@@ -77,7 +77,7 @@ export default function CareersPage() {
       <div className="relative bg-gradient-to-r from-blue-500 to-emerald-400 text-white py-32 overflow-hidden">
         {/* Background Image Overlay */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-100"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=2000&q=80)',
             backgroundSize: 'cover',
@@ -87,7 +87,7 @@ export default function CareersPage() {
 
         <div className="text-center">
           <Briefcase className="mx-auto mb-4" size={48} />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Join Our Team</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 opacity-99">Join Our Team</h1>
           <p className="text-xl md:text-2xl opacity-90">Be part of something meaningful - care for those who need it most</p>
         </div>
       </div>

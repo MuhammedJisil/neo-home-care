@@ -2,8 +2,20 @@ import React from 'react';
 import { Phone, Mail, MapPin, Facebook, Twitter, Youtube, Instagram, Linkedin } from 'lucide-react';
 
 export default function Footer() {
+
+  React.useEffect(() => {
+        const link = document.createElement('link');
+        link.href = 'https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+        
+        return () => {
+          document.head.removeChild(link);
+        };
+      }, []);
+  
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-white">
+    <footer className="bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-white" style={{ fontFamily: "'PT Serif', serif" }}>
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">

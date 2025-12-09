@@ -364,13 +364,7 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="px-4 text-center">
-          <p className="mb-2 text-lg font-semibold">"Bringing Health & Happiness Home"</p>
-          <p className="text-gray-400">© 2024 Neo Home Care Solution. All rights reserved.</p>
-        </div>
-      </footer>
+      
 
       <style jsx>{`
         @keyframes fade-in {

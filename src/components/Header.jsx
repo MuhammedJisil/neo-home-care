@@ -5,6 +5,17 @@ import { Phone, Mail, MapPin, Menu, X } from 'lucide-react';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+    React.useEffect(() => {
+      const link = document.createElement('link');
+      link.href = 'https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap';
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+      
+      return () => {
+        document.head.removeChild(link);
+      };
+    }, []);
+
   const navItems = [
     { name: 'HOME', href: '/' },
     { name: 'ABOUT US', href: '/about' },
@@ -13,7 +24,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white shadow-sm absolute top-0 left-0 right-0 z-50">
+    <header className="bg-white shadow-sm absolute top-0 left-0 right-0 z-50" style={{ fontFamily: "'PT Serif', serif" }}>
       {/* Top bar with contact info */}
       <div className="bg-gradient-to-r from-blue-500 to-emerald-400 text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center text-sm">

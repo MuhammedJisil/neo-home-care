@@ -17,16 +17,18 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen bg-gray-50" style={{ fontFamily: "'PT Serif', serif" }}>
       {/* Hero Section with Background Image */}
-      <div className="relative bg-gradient-to-r from-blue-500 to-emerald-400 text-white py-32 overflow-hidden">
-        {/* Background Image Overlay */}
+      <div className="relative text-white py-32 overflow-hidden">
+        {/* Background Image */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=2000&q=80)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
         />
+        {/* Dark Overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40" />
         
         {/* Content */}
         <div className="relative text-center max-w-4xl mx-auto px-4">

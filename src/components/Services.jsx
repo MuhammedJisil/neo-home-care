@@ -6,18 +6,16 @@ export default function ServicesPage() {
   const sectionRefs = useRef([]);
 
   // Add PT Serif font
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-    document.body.style.fontFamily = "'PT Serif', serif";
-    
-    return () => {
-      document.body.style.fontFamily = '';
-    };
-  }, []);
-
+   React.useEffect(() => {
+     const link = document.createElement('link');
+     link.href = 'https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap';
+     link.rel = 'stylesheet';
+     document.head.appendChild(link);
+     
+     return () => {
+       document.head.removeChild(link);
+     };
+   }, []);
   useEffect(() => {
     const observers = sectionRefs.current.map((ref, index) => {
       const observer = new IntersectionObserver(
