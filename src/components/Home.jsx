@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Title, Meta } from "react-head";
 
 export default function Homepage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -83,6 +84,12 @@ export default function Homepage() {
       className="min-h-screen bg-gray-50"
       style={{ fontFamily: "'PT Serif', serif" }}
     >
+      <Title>Neo Home Care Solutions</Title>
+      <Meta
+        name="description"
+        content="Neo Home Care Solutions provides reliable, compassionate, and professional home care services including elderly care, nursing assistance, physiotherapy, post-operative care, and palliative support—delivered with trust, comfort, and dignity at home."
+      />
+
       {/* Hero Slider Section */}
       <div className="relative h-screen overflow-hidden">
         {heroSlides.map((slide, index) => (
@@ -101,7 +108,7 @@ export default function Homepage() {
             <div className="absolute inset-0 bg-black/40" />
 
             {/* Content */}
-            <div className="relative h-full flex items-center justify-center text-center px-4">
+            <div className="relative h-full flex items-center justify-center text-center max-w-7xl mx-auto px-6 pt-48 pb-32 lg:pt-56 lg:pb-40 md:pt-44 md:pb-24">
               <div className="max-w-4xl">
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
                   {slide.title}

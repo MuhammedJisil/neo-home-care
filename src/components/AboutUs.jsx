@@ -1,6 +1,7 @@
 import React from "react";
 import { Heart, Shield, Users, Award, Clock, Home } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Title, Meta } from "react-head";
 
 export default function AboutUs() {
   // Load PT Serif font
@@ -16,13 +17,38 @@ export default function AboutUs() {
     };
   }, []);
 
+  // Intersection Observer for scroll animations
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll(".scroll-animate");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       className="min-h-screen bg-gray-50"
       style={{ fontFamily: "'PT Serif', serif" }}
     >
+      <Title>About Us | Neo Home Care Solutions</Title>
+      <Meta
+        name="description"
+        content="Learn about Neo Home Care Solutions—our mission to provide reliable, compassionate, and professional home care services. Discover how our trained caregivers, personalized care plans, and commitment to quality make home care safer and more comfortable for every family."
+      />
+
       {/* Hero Section with Background Image */}
-      <div className="relative text-white py-32 overflow-hidden">
+      <div className="relative h-[560px] w-full text-white py-32 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0"
@@ -35,22 +61,50 @@ export default function AboutUs() {
         {/* Dark Overlay for text readability */}
         <div className="absolute inset-0 bg-black/40" />
 
-        {/* Content */}
-        <div className="relative text-center max-w-4xl mx-auto px-4">
-          <Heart className="mx-auto mb-6" size={56} />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">About Us</h1>
-          <p className="text-xl md:text-2xl opacity-95 leading-relaxed">
-            Bringing compassionate, expert healthcare to the comfort of your
-            home
-          </p>
+        {/* Content - Centered */}
+        <div className="relative flex flex-col items-center justify-center text-center h-full max-w-7xl mx-auto px-6">
+          <div className="scroll-animate">
+            <Heart className="mx-auto mb-6" size={56} />
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">About Us</h1>
+            <p className="text-xl md:text-2xl opacity-95 leading-relaxed">
+              Bringing compassionate, expert healthcare to the comfort of your
+              home
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Add styles for scroll animations */}
+      <style>{`
+        .scroll-animate {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .scroll-animate.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .scroll-animate-delay-1 {
+          transition-delay: 0.1s;
+        }
+        
+        .scroll-animate-delay-2 {
+          transition-delay: 0.2s;
+        }
+        
+        .scroll-animate-delay-3 {
+          transition-delay: 0.3s;
+        }
+      `}</style>
 
       {/* Main Story Section */}
       <div className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="scroll-animate">
               <h2 className="text-4xl font-bold text-gray-800 mb-6">
                 Our Story
               </h2>
@@ -74,7 +128,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="rounded-lg overflow-hidden shadow-2xl">
+            <div className="rounded-lg overflow-hidden shadow-2xl scroll-animate scroll-animate-delay-1">
               <img
                 src="./hero-1.png"
                 alt="Compassionate nursing care"
@@ -89,7 +143,7 @@ export default function AboutUs() {
       <div className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1 rounded-lg overflow-hidden shadow-2xl">
+            <div className="order-2 md:order-1 rounded-lg overflow-hidden shadow-2xl scroll-animate">
               <img
                 src="image-5.png"
                 alt="Patient care at home"
@@ -97,7 +151,7 @@ export default function AboutUs() {
               />
             </div>
 
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 scroll-animate scroll-animate-delay-1">
               <h2 className="text-4xl font-bold text-gray-800 mb-6">
                 Our Mission
               </h2>
@@ -125,12 +179,12 @@ export default function AboutUs() {
       {/* Our Team & Expertise Section */}
       <div className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-gray-800 mb-12 text-center">
+          <h2 className="text-4xl font-bold text-gray-800 mb-12 text-center scroll-animate">
             Our Team & Expertise
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
-            <div>
+            <div className="scroll-animate">
               <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
                 <p>
                   At the heart of Neo Home Nursing Service is our team of
@@ -150,7 +204,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="rounded-lg overflow-hidden shadow-2xl">
+            <div className="rounded-lg overflow-hidden shadow-2xl scroll-animate scroll-animate-delay-1">
               <img
                 src="./image-4.jpeg"
                 alt="Professional nursing team"
@@ -161,7 +215,7 @@ export default function AboutUs() {
 
           {/* Services Grid */}
           <div className="grid md:grid-cols-3 gap-8 mt-16">
-            <div className="bg-blue-50 p-6 rounded-lg">
+            <div className="bg-blue-50 p-6 rounded-lg scroll-animate">
               <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-4">
                 <Heart className="text-white" size={24} />
               </div>
@@ -174,7 +228,7 @@ export default function AboutUs() {
               </p>
             </div>
 
-            <div className="bg-emerald-50 p-6 rounded-lg">
+            <div className="bg-emerald-50 p-6 rounded-lg scroll-animate scroll-animate-delay-1">
               <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center mb-4">
                 <Shield className="text-white" size={24} />
               </div>
@@ -187,7 +241,7 @@ export default function AboutUs() {
               </p>
             </div>
 
-            <div className="bg-teal-50 p-6 rounded-lg">
+            <div className="bg-teal-50 p-6 rounded-lg scroll-animate scroll-animate-delay-2">
               <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center mb-4">
                 <Home className="text-white" size={24} />
               </div>
@@ -206,12 +260,12 @@ export default function AboutUs() {
       {/* Our Commitment Section */}
       <div className="py-16 bg-gradient-to-r from-blue-500 to-emerald-400 text-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center">
+          <h2 className="text-4xl font-bold mb-12 text-center scroll-animate">
             Our Commitment to Excellence
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
+            <div className="text-center scroll-animate">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Clock className="text-white" size={32} />
               </div>
@@ -222,7 +276,7 @@ export default function AboutUs() {
               </p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center scroll-animate scroll-animate-delay-1">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="text-white" size={32} />
               </div>
@@ -233,7 +287,7 @@ export default function AboutUs() {
               </p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center scroll-animate scroll-animate-delay-2">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="text-white" size={32} />
               </div>
@@ -250,12 +304,12 @@ export default function AboutUs() {
       {/* Why Choose Us Section */}
       <div className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-gray-800 mb-12 text-center">
+          <h2 className="text-4xl font-bold text-gray-800 mb-12 text-center scroll-animate">
             Why Choose Neo Home Care Solutions
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start scroll-animate">
               <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                 <Award className="text-blue-500" size={24} />
               </div>
@@ -270,7 +324,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start scroll-animate scroll-animate-delay-1">
               <div className="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
                 <Heart className="text-emerald-500" size={24} />
               </div>
@@ -285,7 +339,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start scroll-animate scroll-animate-delay-2">
               <div className="flex-shrink-0 w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
                 <Shield className="text-teal-500" size={24} />
               </div>
@@ -300,7 +354,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start scroll-animate scroll-animate-delay-3">
               <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                 <Home className="text-blue-500" size={24} />
               </div>
@@ -320,7 +374,7 @@ export default function AboutUs() {
 
       {/* Closing Statement */}
       <div className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+        <div className="max-w-4xl mx-auto px-4 text-center scroll-animate">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">
             Trust Neo Home Care Solutions for Excellence in Home Healthcare
           </h2>
@@ -333,7 +387,7 @@ export default function AboutUs() {
           </p>
           <Link
             to="/contact"
-            className="bg-gradient-to-r from-blue-500 to-emerald-400 text-white px-8 py-3 rounded-full font-semibold text-lg hover:shadow-lg transition-shadow duration-200"
+            className="bg-gradient-to-r from-blue-500 to-emerald-400 text-white px-8 py-3 rounded-full font-semibold text-lg hover:shadow-lg transition-shadow duration-200 inline-block"
           >
             Contact Us Today
           </Link>

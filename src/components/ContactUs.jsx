@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Phone, Mail, MapPin, Send, Clock, MessageSquare } from "lucide-react";
+import { Title, Meta } from "react-head";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -94,8 +95,14 @@ export default function ContactPage() {
       className="min-h-screen bg-gray-50"
       style={{ fontFamily: "'PT Serif', serif" }}
     >
+      <Title>Contact Us | Neo Home Care Solutions</Title>
+      <Meta
+        name="description"
+        content="Get in touch with Neo Home Care Solutions for reliable and compassionate home care services. Contact our team for inquiries, service bookings, support, or customized care plans tailored to your loved one’s needs."
+      />
+
       {/* Hero Section with Background Image */}
-      <div className="relative bg-gradient-to-r from-blue-500 to-emerald-400 text-white py-32 overflow-hidden">
+      <div className="relative h-[560px] w-full text-white py-32 overflow-hidden">
         {/* Background Image Overlay */}
         <div
           className="absolute inset-0 opacity-100"
@@ -108,14 +115,44 @@ export default function ContactPage() {
         {/* Dark Overlay for text readability */}
         <div className="absolute inset-0 bg-black/40" />
 
-        <div className="relative text-center z-10">
-          <MessageSquare className="mx-auto mb-4" size={48} />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h1>
-          <p className="text-xl md:text-2xl opacity-90">
-            We're here to help and answer any questions you might have
-          </p>
+        <div className="relative flex flex-col items-center justify-center text-center h-full max-w-7xl mx-auto px-6">
+          <div className="scroll-animate">
+            <MessageSquare className="mx-auto mb-4" size={48} />
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Get In Touch
+            </h1>
+            <p className="text-xl md:text-2xl opacity-90">
+              We're here to help and answer any questions you might have
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Add styles for scroll animations */}
+      <style>{`
+        .scroll-animate {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .scroll-animate.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .scroll-animate-delay-1 {
+          transition-delay: 0.1s;
+        }
+        
+        .scroll-animate-delay-2 {
+          transition-delay: 0.2s;
+        }
+        
+        .scroll-animate-delay-3 {
+          transition-delay: 0.3s;
+        }
+      `}</style>
 
       {/* Main Content */}
       <div className="px-4 py-12 max-w-7xl mx-auto">
