@@ -291,10 +291,10 @@ export default function AboutUs() {
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="text-white" size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Nationwide Coverage</h3>
+              <h3 className="text-2xl font-bold mb-3">Family-First Approach</h3>
               <p className="text-white/90 text-lg">
-                Serving families across India with consistent, high-quality care
-                in every region.
+                We treat every patient like family, ensuring safe, hygienic
+                practices and clear communication always.
               </p>
             </div>
           </div>

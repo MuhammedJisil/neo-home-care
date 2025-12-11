@@ -10,6 +10,7 @@ import Careers from "./components/Careers";
 import ContactUs from "./components/ContactUs";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </div>

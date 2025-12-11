@@ -65,7 +65,6 @@ export default function CareersPage() {
   }, []);
 
   const positions = [
-    "MLT (Medical Laboratory Technician)",
     "GNM (General Nursing and Midwifery)",
     "ANM (Auxiliary Nurse Midwife)",
     "GNA (General Nursing Assistant)",
